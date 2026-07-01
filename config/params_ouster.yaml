@@ -1,0 +1,164 @@
+# LIO-SAM configuration used for orchard 3D reconstruction experiments
+# Sensor setup: Ouster OS0-128 + external Xsens IMU
+#
+# This file is intended to be used with the original LIO-SAM ROS1 implementation:
+# https://github.com/TixiaoShan/LIO-SAM
+#
+# The core LIO-SAM algorithm was not modified. Only configurable parameters
+# such as ROS topics, sensor type, scan dimensions, IMU noise parameters,
+# extrinsics, and mapping settings were adapted to the experimental setup.
+
+lio_sam:
+
+  # ROS topics
+  pointCloudTopic: "ouster/points"              # LiDAR point cloud topic
+  imuTopic: "imu_correct"                       # IMU topic after frame correction
+  odomTopic: "odometry/imu"                     # IMU pre-integration odometry
+  gpsTopic: "odometry/gpsz"                     # GPS odometry topic from navsat
+
+  # Frames
+  lidarFrame: "base_link"
+  baselinkFrame: "base_link"
+  odometryFrame: "odom"
+  mapFrame: "map"
+
+  # GPS settings
+  useImuHeadingInitialization: false
+  useGpsElevation: true
+  gpsCovThreshold: 50.0
+  poseCovThreshold: 0.001
+
+  # Export settings
+  savePCD: true
+  savePCDDirectory: "/Downloads/LOAM/"
+
+  # LiDAR-specific settings: Ouster OS0-128
+  sensor: ouster
+  N_SCAN: 128
+  Horizon_SCAN: 1024
+  extrinsicTrans: [-0.00431, -0.0033, -0.07476]
+  edgeFeatureMinValidNum: 10
+
+  # Downsampling and range limits
+  odometrySurfLeafSize: 0.25
+  mappingSurfLeafSize: 0.25
+  downsampleRate: 1
+  lidarMinRange: 0.4
+  lidarMaxRange: 1000.0
+
+  # External IMU settings: Xsens
+  imuAccNoise: 6.0e-04
+  imuGyrNoise: 1.22e-04
+  imuAccBiasN: 1.0e-04
+  imuGyrBiasN: 3.9e-05
+  imuGravity: 9.80511
+  imuRPYWeight: 0.01
+
+  # IMU-LiDAR extrinsics
+  extrinsicRot: [1, 0, 0,
+                 0, 1, 0,
+                 0, 0, 1]
+  extrinsicRPY: [1, 0, 0,
+                 0, 1, 0,
+                 0, 0, 1]
+
+  # LOAM feature thresholds
+  edgeThreshold: 1.0
+  surfThreshold: 0.1
+  surfFeatureMinValidNum: 100
+
+  # Voxel filter parameters
+  mappingCornerLeafSize: 0.2
+
+  # Robot motion constraints
+  z_tollerance: 1000
+  rotation_tollerance: 1000
+
+  # CPU parameters
+  numberOfCores: 16
+  mappingProcessInterval: 0.1
+
+  # Surrounding map settings
+  surroundingkeyframeAddingDistThreshold: 0.05
+  surroundingkeyframeAddingAngleThreshold: 0.15
+  surroundingKeyframeDensity: 2.0
+  surroundingKeyframeSearchRadius: 30
+
+  # Loop closure
+  loopClosureEnableFlag: false
+  loopClosureFrequency: 1.0
+  surroundingKeyframeSize: 50
+  historyKeyframeSearchRadius: 15.0
+  historyKeyframeSearchTimeDiff: 30.0
+  historyKeyframeSearchNum: 25
+  historyKeyframeFitnessScore: 0.3
+
+  # Visualization
+  globalMapVisualizationSearchRadius: 1000.0
+  globalMapVisualizationPoseDensity: 10.0
+  globalMapVisualizationLeafSize: 1.0
+
+
+# Navsat configuration: conversion of GPS coordinates to Cartesian coordinates
+navsat:
+  frequency: 50
+  wait_for_datum: false
+  delay: 0.0
+  magnetic_declination_radians: 0
+  yaw_offset: 0
+
+  zero_altitude: true
+  broadcast_utm_transform: false
+  broadcast_utm_transform_as_parent_frame: false
+  publish_filtered_gps: false
+
+
+# EKF configuration used by navsat
+ekf_gps:
+  publish_tf: false
+  map_frame: map
+  odom_frame: odom
+  base_link_frame: base_link
+  world_frame: odom
+
+  frequency: 50
+  two_d_mode: false
+  sensor_timeout: 0.01
+
+  # External IMU
+  imu0: imu_correct
+  imu0_config: [false, false, false,
+                true,  true,  true,
+                false, false, false,
+                false, false, true,
+                true,  true,  true]
+  imu0_differential: false
+  imu0_queue_size: 50
+  imu0_remove_gravitational_acceleration: true
+
+  # Odometry from navsat
+  odom0: odometry/gps
+  odom0_config: [true,  true,  true,
+                 false, false, false,
+                 false, false, false,
+                 false, false, false,
+                 false, false, false]
+  odom0_differential: false
+  odom0_queue_size: 10
+
+  # Process noise covariance
+  process_noise_covariance: [0.01, 0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,    0,    0,      0,
+                             0,    0.01, 0,    0,    0,    0,    0,     0,     0,     0,    0,    0,    0,    0,      0,
+                             0,    0,    10.0, 0,    0,    0,    0,     0,     0,     0,    0,    0,    0,    0,      0,
+                             0,    0,    0,    0.03, 0,    0,    0,     0,     0,     0,    0,    0,    0,    0,      0,
+                             0,    0,    0,    0,    0.03, 0,    0,     0,     0,     0,    0,    0,    0,    0,      0,
+                             0,    0,    0,    0,    0,    0.1,  0,     0,     0,     0,    0,    0,    0,    0,      0,
+                             0,    0,    0,    0,    0,    0,    0.25,  0,     0,     0,    0,    0,    0,    0,      0,
+                             0,    0,    0,    0,    0,    0,    0,     0.25,  0,     0,    0,    0,    0,    0,      0,
+                             0,    0,    0,    0,    0,    0,    0,     0,     0.04,  0,    0,    0,    0,    0,      0,
+                             0,    0,    0,    0,    0,    0,    0,     0,     0,     0.01, 0,    0,    0,    0,      0,
+                             0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0.01, 0,    0,    0,      0,
+                             0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0.5,  0,    0,      0,
+                             0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,    0.01, 0,      0,
+                             0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,    0,    0.01,   0,
+                             0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,    0,    0,      0.015]
