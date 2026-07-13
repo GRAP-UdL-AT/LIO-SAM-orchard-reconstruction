@@ -138,7 +138,7 @@ Projects Call 2025 (PhotonFruit project).
   >
   &nbsp;&nbsp;&nbsp;&nbsp;
   <img
-    src="docs/funding/irta.png"
+    src="docs/funding/IRTA.png"
     alt="IRTA"
     height="75"
   >
