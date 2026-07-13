@@ -103,7 +103,7 @@ The dataset description is provided in [`docs/dataset_description.md`](docs/data
 ## Acknowledgements
 
 This work has been developed within the framework of project TED2021-131871B-I00
-([DIGIFRUIT project](https://www.grap.udl.cat/en/projects/digifruit/)), funded by the
+([DIGIFRUIT project](https://www.grap.udl.cat/en/recerca/projectes-de-recerca/digifruit/)), funded by the
 Spanish Ministry of Science, Innovation and Universities
 (MICIU)/AEI/10.13039/501100011033 and by the European Union
 NextGenerationEU/PRTR.
