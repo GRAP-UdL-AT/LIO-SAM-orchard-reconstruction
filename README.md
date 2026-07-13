@@ -100,6 +100,66 @@ The dataset description is provided in [`docs/dataset_description.md`](docs/data
 - Loop closure was disabled in the published configuration with `loopClosureEnableFlag: false`.
 - The original LIO-SAM package should be cited when using this configuration.
 
+## Acknowledgements
+
+This work has been developed within the framework of project TED2021-131871B-I00
+([DIGIFRUIT project](https://www.grap.udl.cat/en/projects/digifruit/)), funded by the
+Spanish Ministry of Science, Innovation and Universities
+(MICIU)/AEI/10.13039/501100011033 and by the European Union
+NextGenerationEU/PRTR.
+
+This research was also partly funded by the Department of Research and
+Universities of the Generalitat de Catalunya (grant 2017 SGR 646); by the
+Spanish Ministry of Science and Innovation/AEI/10.13039/501100011033/ERDF
+through projects PID2021-126648OB-I00 (PAgPROTECT project) and
+PID2024-156495OR-C31 (YIELD4CAST project); and by the Agrotecnio-IRTA Joint
+Projects Call 2025 (PhotonFruit project).
+
+
+<p align="center">
+  <img
+    src="docs/funding/gene.png"
+    alt="Generalitat de Catalunya"
+    height="75"
+  >
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img
+    src="docs/funding/udl.png"
+    alt="Universitat de Lleida"
+    height="90"
+  >
+</p>
+
+<p align="center">
+  <img
+    src="docs/funding/agrotecnio.png"
+    alt="Agrotecnio"
+    height="85"
+  >
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img
+    src="docs/funding/irta.png"
+    alt="IRTA"
+    height="75"
+  >
+</p>
+
+<p align="center">
+  <img
+    src="docs\funding\TED_MICIU+NextG+PRTR+AEI.jpg"
+    alt="DIGIFRUIT project funding: MICIU, AEI, European Union NextGenerationEU and PRTR"
+    width="50%"
+  >
+</p>
+
+<p align="center">
+  <img
+    src="docs\funding\PAGPROTECT_MICIU+Cofinanciado+AEI.jpg"
+    alt="PAgPROTECT project funding: MICIU, AEI and European Union"
+    width="50%"
+  >
+</p>
+
 
 ##  Notice
 
