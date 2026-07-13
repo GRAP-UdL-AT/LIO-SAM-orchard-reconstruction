@@ -6,7 +6,6 @@ The repository is intended as a reproducibility package for the manuscript:
 
 > **Benchmarking cost-effective LiDAR-SLAM systems for 3D fruit orchard reconstruction and geometric characterisation**  
 > **Marc Felip-Pomés, Jordi Gené-Mola, Jordi Llorens-Calveras,                        Ricardo Sanz-Cortiella, Alexandre Escolà, Jaume Lordan, José M. Plata, Eduard Gregorio**  
-> Submitted to *Biosystems Engineering*.
 
 ## Purpose of this repository
 
